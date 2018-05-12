@@ -10,7 +10,9 @@ from functools import wraps
 def try_except_decorate(func):
         def inner(request, *args, **kwargs):
             try:
-                return func(request, *args, **kwargs)
+                result = func(request, *args, **kwargs)
+                if result is None:
+                    return JsonResponse({'result': 'failed', 'message': '网络异常'}, safe=False)
             except Exception as e:
                 return JsonResponse({'result': 'failed', 'message': '网络异常'}, safe=False)
         return inner
@@ -86,8 +88,9 @@ def get_teacher_list_by_type(request):
         return HttpResponse("请求类型错误，请使用get请求")
     cursor = connection.cursor()
     try:
-        teacher_type = request.GET['teacher_type']
-        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers where teacher_type='%s'" % teacher_type
+        teacher_type_code = request.GET['teacher_type_code']
+        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers \
+            where teacher_type_code='%s'" % teacher_type_code
         cursor.execute(sql)
         result = cursor.fetchall()
         return JsonResponse(result, safe=False)
