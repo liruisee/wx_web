@@ -104,17 +104,18 @@ def get_teacher_list_by_type(request):
         cursor.close()
 
 
-@try_except_decorate
 def get_teacher_info(request):
     if request.method != 'GET':
         return HttpResponse("请求类型错误，请使用get请求")
     cursor = connection.cursor()
     try:
         teacher_id = request.GET['teacher_id']
+        row_key_list = ['teacher_id', 'teacher_name', 'teacher_record', 'teacher_type', 'img_url', 'video_url']
         sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers \
             where teacher_id='%s'" % teacher_id
+        print(sql)
         cursor.execute(sql)
-        result = cursor.fetchall()
+        result = [[dict(zip(row_key_list, list(row)))] for row in cursor.fetchall()]
         return JsonResponse(result, safe=False)
     except Exception as e:
         print(e)

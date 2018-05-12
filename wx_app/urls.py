@@ -9,6 +9,7 @@ urlpatterns = [
     path('teacher_list/', views.teacher_list),
     path('get_teacher_list/', views.get_teacher_list_by_type),
     path('teacher_info/', views.teacher_info),
+    path('get_teacher_info/', views.get_teacher_info),
     path('type_list/', views.type_list),
     path('get_type_list/', views.get_type_list),
 ]
