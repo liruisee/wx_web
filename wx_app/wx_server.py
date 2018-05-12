@@ -3,6 +3,7 @@ import hashlib
 import requests
 import json
 from common_util.redis_util.redis_conn import RedisUtil
+from wx_app.wx_conf import menu_conf_dic
 
 
 app_name = '盛世爱游'
@@ -60,4 +61,8 @@ def create_menu(menu_conf_dic):
     url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s' % access_token
     response = requests.post(url, menu_conf_dic).text
     return response
+
+
+
+
 

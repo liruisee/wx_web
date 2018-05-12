@@ -2,6 +2,7 @@ from django.shortcuts import render, render_to_response, redirect, reverse
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.contrib.auth.models import User
 import hashlib
+from django.db import connection
 
 
 # Create your views here.
@@ -32,10 +33,6 @@ def regist(request):
         return JsonResponse({'result': 'faild', 'message': 'regist faild'}, safe=False)
 
 
-def get_access_token():
-    pass
-
-
 def teacher_list(request):
     return render(request, 'teacher_list.html', {})
 
@@ -46,3 +43,30 @@ def teacher_info(request):
 
 def type_list(request):
     return render(request, 'type_list.html', {})
+
+
+def get_type_list(request):
+    cursor = connection.cursor()
+    try:
+        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers"
+        result_dic = {}
+        cursor.execute(sql)
+        for row in cursor.fetchall():
+            teacher_type = str(row[4])
+            if teacher_type not in result_dic:
+                result_dic[teacher_type] = [list(row)]
+            elif len(result_dic[teacher_type]) < 3 :
+                result_dic[teacher_type].append(list(row))
+            else:
+                continue
+        key_list = sorted(result_dic.keys())
+        result = [result_dic[x] for x in key_list]
+        return JsonResponse(result, safe=False)
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+
+
+
+
