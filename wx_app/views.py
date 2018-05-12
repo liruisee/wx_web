@@ -8,13 +8,11 @@ from functools import wraps
 
 # Create your views here.
 def try_except_decorate(func):
-        @wraps(func)
         def inner(request, *args, **kwargs):
             try:
                 return func(request, *args, **kwargs)
             except Exception as e:
-                print({'result': 'failed', 'message': str(e)})
-                return JsonResponse({'result': 'failed', 'message': str(e)}, safe=False)
+                return JsonResponse({'result': 'failed', 'message': '网络异常'}, safe=False)
         return inner
 
 
@@ -57,20 +55,21 @@ def type_list(request):
 
 
 # 返回老是的type_list，用于ajax请求，类型{type1:[row1, row2, row3],type2:[row1, row2, row3]}
+@try_except_decorate
 def get_type_list(request):
     cursor = connection.cursor()
     try:
-        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers"
+        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url,teacher_type_code from teachers"
         result_dic = {}
         row_key_list = ['teacher_id', 'teacher_name', 'teacher_record', 'teacher_type', 'img_url', 'video_url']
         cursor.execute(sql)
         for row in cursor.fetchall():
-            teacher_type = str(row[3])
+            teacher_type = str(row[-1])
             if teacher_type not in result_dic:
-                result_dic[teacher_type] = [dict(zip(row_key_list, list(row)))]
+                result_dic[teacher_type] = [dict(zip(row_key_list, list(row[:-1])))]
             else:
                 if len(result_dic[teacher_type]) < 3:
-                    result_dic[teacher_type].append(dict(zip(row_key_list, list(row))))
+                    result_dic[teacher_type].append(dict(zip(row_key_list, list(row[:-1]))))
                 else:
                     pass
         type_list = sorted(result_dic.keys())
