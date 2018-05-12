@@ -3,9 +3,20 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.contrib.auth.models import User
 import hashlib
 from django.db import connection
+from functools import wraps
 
 
 # Create your views here.
+def try_except_decorate(func):
+        @wraps(func)
+        def inner(request, *args, **kwargs):
+            try:
+                return func(request, *args, **kwargs)
+            except Exception as e:
+                print({'result': 'failed', 'message': str(e)})
+                return JsonResponse({'result': 'failed', 'message': str(e)}, safe=False)
+        return inner
+
 
 def start(request):
     # 以下三种方法结果是一样的，reverse的args为login所需的参数
@@ -45,6 +56,7 @@ def type_list(request):
     return render(request, 'type_list.html', {})
 
 
+# 返回老是的type_list，用于ajax请求，类型{type1:[row1, row2, row3],type2:[row1, row2, row3]}
 def get_type_list(request):
     cursor = connection.cursor()
     try:
@@ -69,6 +81,21 @@ def get_type_list(request):
     finally:
         cursor.close()
 
+
+def get_teacher_list_by_type(request):
+    if request.method != 'GET':
+        return HttpResponse("请求类型错误，请使用get请求")
+    cursor = connection.cursor()
+    try:
+        teacher_type = request.GET['teacher_type']
+        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers where teacher_type='%s'" % teacher_type
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return JsonResponse(result, safe=False)
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
 
 
 

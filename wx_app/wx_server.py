@@ -39,12 +39,15 @@ def check_signature(request):
 
 # 获取access_token，获取之后会存到redis数据库中，并设置过期时间是7150秒，过期后重新获取
 def get_access_token():
+    global app_id, app_secret
     r = RedisUtil.get_conn('txy_db')
     access_token = r.get('wx_access_token')
+    print(access_token)
     if access_token is None:
         # 如果发现access_token已经过过期，重新请求access_token
         url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s' % (app_id, app_secret)
         response = requests.get(url).text
+        print(response)
         access_token = json.loads(response)['access_token']
 
         # 将请求后的access_token重新写入到redis中，并设置过期时间
@@ -63,6 +66,7 @@ def create_menu(menu_conf_dic):
     return response
 
 
-
+# if __name__ == '__main__':
+#     create_menu(menu_conf_dic)
 
 
