@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% laod static %}
+{% load static %}
 <html lang="en">
 <head>
     <base href="{% static "./wx_dist/" %}">
@@ -13,6 +13,7 @@
 </head>
 <body class="bg_body">
     <div id="app">
+        {% verbatim myblock %}
         <div class="type_box" v-for="(datas,index) in data_list">
             <p class="type_box_msg">
                 <span class="type_box_text">{{datas[index].teacher_type}}</span>
@@ -26,6 +27,7 @@
                 <teaThu v-for="dat in datas"></teaThu>
             </ul>
         </div>
+        {% endverbatim myblock %}
     </div>
     <script src="./js/vue.js"></script>
     <script src="./js/vue-resource-1.50.js"></script>
