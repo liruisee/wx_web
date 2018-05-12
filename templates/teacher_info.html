@@ -30,8 +30,8 @@
             },
             created:function(){
                 console.log(this.name);
-                this.$http.get('http://0.0.0.0:8000/myapp/teacher/', []).then(function (res) {
-                    console.log(res);
+                this.$http.get('/wx_app/get_teacher_info/?teacher_id=1', []).then(function (res) {
+                    console.log(res.body);
                 }, function(res){
                     console.log(res);
 

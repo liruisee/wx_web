@@ -15,36 +15,17 @@
     <div class="teacher" id="app">
         <p class="teacher_title">曲艺</p>
         <ul class="teacher_list">
-            <li>
-                <div class="teacher_list_img">
-                    <img src="./images/kkx.jpeg" alt="">
-                </div>
-                <div class="teacher_list_msg">
-                    <p class="list_msg_name">旗木·卡卡西</p>
-                    <p class="list_msg_type"><span>类别：</span>曲艺</p>
-                    <p class="list_msg_brief"><span>简介：</span>火之国木叶隐村的精英上忍，原木叶暗部成员，四代目火影波风水门的弟子，木叶第七班队长，漩涡鸣人、宇智波…成功恢复。） 因使用写轮眼复制了上千种忍术而被称为“拷贝忍者”、“写轮眼卡卡西”，其名号响彻各国。</p>
-                </div>
-            </li>
-            <li>
-                <div class="teacher_list_img">
-                    <img src="./images/kkx.jpeg" alt="">
-                </div>
-                <div class="teacher_list_msg">
-                    <p class="list_msg_name">旗木·卡卡西</p>
-                    <p class="list_msg_type"><span>类别：</span>曲艺</p>
-                    <p class="list_msg_brief"><span>简介：</span>火之国木叶隐村的精英上忍，原木叶暗部成员，四代目火影波风水门的弟子，木叶第七班队长，漩涡鸣人、宇智波…成功恢复。） 因使用写轮眼复制了上千种忍术而被称为“拷贝忍者”、“写轮眼卡卡西”，其名号响彻各国。</p>
-                </div>
-            </li>
-            <li>
-                <div class="teacher_list_img">
-                    <img src="./images/kkx.jpeg" alt="">
-                </div>
-                <div class="teacher_list_msg">
-                    <p class="list_msg_name">旗木·卡卡西</p>
-                    <p class="list_msg_type"><span>类别：</span>曲艺</p>
-                    <p class="list_msg_brief"><span>简介：</span>火之国木叶隐村的精英上忍，原木叶暗部成员，四代目火影波风水门的弟子，木叶第七班队长，漩涡鸣人、宇智波…成功恢复。） 因使用写轮眼复制了上千种忍术而被称为“拷贝忍者”、“写轮眼卡卡西”，其名号响彻各国。</p>
-                </div>
-            </li>
+{#            <li>#}
+{#                <div class="teacher_list_img">#}
+{#                    <img src="./images/kkx.jpeg" alt="">#}
+{#                </div>#}
+{#                <div class="teacher_list_msg">#}
+{#                    <p class="list_msg_name">旗木·卡卡西</p>#}
+{#                    <p class="list_msg_type"><span>类别：</span>曲艺</p>#}
+{#                    <p class="list_msg_brief"><span>简介：</span>火之国木叶隐村的精英上忍，原木叶暗部成员，四代目火影波风水门的弟子，木叶第七班队长，漩涡鸣人、宇智波…成功恢复。） 因使用写轮眼复制了上千种忍术而被称为“拷贝忍者”、“写轮眼卡卡西”，其名号响彻各国。</p>#}
+{#                </div>#}
+{#            </li>#}
+            <li is="teaThu" v-bind="data" v-for="data in datalist"></li>
         </ul>
     </div>
     <script src="./js/vue.js"></script>
@@ -54,19 +35,38 @@
         var app = new Vue({
             el:"#app",
             data:{
-
+                datalist:[]
+            },
+            components:{
+                'teaThu':teacherlistchild
             },
             methods:{
 
             },
             created:function(){
-                console.log(this.name);
-                this.$http.get('http://0.0.0.0:8000/myapp/teacher/', []).then(function (res) {
-                    console.log(res);
+                this.$http.get('/wx_app/get_teacher_list?teacher_type_code=A',{}).then(function (res) {
+                    console.log(res.body);
+                    this.datalist = res.body;
                 }, function(res){
                     console.log(res);
 
                 });
+
+
+{#                this.$http({#}
+{#                    method:'GET',#}
+{#                    url:'/wx_app/get_teacher_list/',#}
+{#                    data:{"teacher_type_code":"A"},#}
+{#                    headers: {"X-Requested-With": "XMLHttpRequest"},#}
+{#                    emulateJSON: true#}
+{#                }).then(function (res) {#}
+{#                    console.log(res);#}
+{#                }, function(res){#}
+{#                    console.log(res);#}
+{##}
+{#                });#}
+
+
             }
         })
     </script>
