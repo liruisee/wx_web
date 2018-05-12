@@ -4,7 +4,10 @@ from wx_app import views, wx_server
 urlpatterns = [
     path('', views.start),
     path('login/', views.login),
-    path('index/', views.index),
     path('regist/', views.regist),
     path('check_signature/', wx_server.check_signature),
+    path('teacher_list/', views.teacher_list),
+    path('teacher_info/', views.teacher_info),
+    path('type_list/', views.type_list),
 ]
+

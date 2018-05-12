@@ -17,10 +17,6 @@ def login(request):
     return render(request, 'login.html', {})
 
 
-def index(request):
-    return render_to_response('index.html', {})
-
-
 def regist(request):
     if request.method != 'POST':
         return JsonResponse({'result': 'faild', 'message': 'regist faild'}, safe=False)
@@ -38,3 +34,15 @@ def regist(request):
 
 def get_access_token():
     pass
+
+
+def teacher_list(request):
+    return render(request, 'teacher_list.html', {})
+
+
+def teacher_info(request):
+    return render(request, 'teacher_info.html', {})
+
+
+def type_list(request):
+    return render(request, 'type_list.html', {})
