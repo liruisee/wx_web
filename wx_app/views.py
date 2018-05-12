@@ -6,15 +6,17 @@ from django.db import connection
 from functools import wraps
 
 
-# Create your views here.
+# 异常处理，因为
 def try_except_decorate(func):
         def inner(request, *args, **kwargs):
             try:
                 result = func(request, *args, **kwargs)
                 if result is None:
                     return JsonResponse({'result': 'failed', 'message': '网络异常'}, safe=False)
+                else:
+                    return result
             except Exception as e:
-                return JsonResponse({'result': 'failed', 'message': '网络异常'}, safe=False)
+                return JsonResponse({'result': 'failed', 'message': str(e)}, safe=False)
         return inner
 
 
@@ -83,16 +85,18 @@ def get_type_list(request):
         cursor.close()
 
 
+@try_except_decorate
 def get_teacher_list_by_type(request):
     if request.method != 'GET':
         return HttpResponse("请求类型错误，请使用get请求")
     cursor = connection.cursor()
     try:
         teacher_type_code = request.GET['teacher_type_code']
+        row_key_list = ['teacher_id', 'teacher_name', 'teacher_record', 'teacher_type', 'img_url', 'video_url']
         sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers \
             where teacher_type_code='%s'" % teacher_type_code
         cursor.execute(sql)
-        result = cursor.fetchall()
+        result = [[dict(zip(row_key_list, list(row)))] for row in cursor.fetchall()]
         return JsonResponse(result, safe=False)
     except Exception as e:
         print(e)
@@ -100,4 +104,20 @@ def get_teacher_list_by_type(request):
         cursor.close()
 
 
+@try_except_decorate
+def get_teacher_info(request):
+    if request.method != 'GET':
+        return HttpResponse("请求类型错误，请使用get请求")
+    cursor = connection.cursor()
+    try:
+        teacher_id = request.GET['teacher_id']
+        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers \
+            where teacher_id='%s'" % teacher_id
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return JsonResponse(result, safe=False)
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
 
