@@ -12,8 +12,6 @@
     <title>非物质文化遗产</title>
 </head>
 <body class="bg_body">
-{% autoescape off %}
-
     <div id="app">
         {% verbatim myblock %}
         <div class="type_box" v-for="(datas,index) in data_list">
@@ -31,7 +29,6 @@
         </div>
         {% endverbatim myblock %}
     </div>
-{% endautoescape %}
     <script src="./js/vue.js"></script>
     <script src="./js/vue-resource-1.50.js"></script>
     <script src='./js/main.js'></script>
