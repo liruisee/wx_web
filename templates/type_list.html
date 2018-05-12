@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="./wx_dist/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>非物质文化遗产</title>
+</head>
+<body class="bg_body">
+    <div id="app">
+        <div class="type_box" v-for="(datas,index) in data_list">
+            <p class="type_box_msg">
+                <span class="type_box_text">{{datas[index].teacher_type}}</span>
+                <span class="type_box_more">更多</span>
+            </p>
+            <ul class="type_box_list" >
+                <!--<li v-for="dat in datas" :teaid=dat.teacher_id  @click="jump($event.currentTarget)">-->
+                    <!--<img :src=imgurl+dat.img_url alt="" class="box_list_img">-->
+                    <!--<span class="teachername">{{dat.teacher_name}}</span>-->
+                <!--</li>-->
+                <teaThu v-for="dat in datas"></teaThu>
+            </ul>
+        </div>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-resource-1.50.js"></script>
+    <script src='./js/main.js'></script>
+    <script>
+
+        var child = {
+            props:['img_url','teacher_id','teacher_name','teacher_record','teacher_type','video_url'],
+            template:'<li @click="jump(teacherId)"><img :src=imgUrl alt="" class="box_list_img"><span class="teachername">{{ teacherName }}</span></li>',
+            data:function(){
+                return {
+                    'imgUrl':this.img_url,
+                    'teacherId':this.teacher_id,
+                    'teacherName':this.teacher_name,
+                    'teacherRecord':this.teacher_record,
+                    'teacherType':this.teacher_type,
+                    'videoUrl':this.video_url
+                }
+            },
+            methods:{
+                jump:function(e){
+                    console.log(e);
+                }
+            }
+        }
+
+        var app = new Vue({
+            el:'#app',
+            components:{
+                'teaThu':child
+            },
+            data:{
+                name:'川川',
+                data_list: [[
+                        {'img_url':'kkx.jpeg','teacher_id':1,'teacher_name':'旗木卡卡西','teacher_record':'火之国木叶隐村的精英上忍','teacher_type':'s','video_url':'kkx'},
+                        {'img_url':'kkx.jpeg','teacher_id':1,'teacher_name':'旗木卡卡西','teacher_record':'火之国木叶隐村的精英上忍','teacher_type':'s','video_url':'kkx'},
+                        {'img_url':'kkx.jpeg','teacher_id':1,'teacher_name':'旗木卡卡西','teacher_record':'火之国木叶隐村的精英上忍','teacher_type':'s','video_url':'kkx'}
+                    ],
+                    [
+                        {'img_url':'mtk.jpeg','teacher_id':2,'teacher_name':'迈特凯','teacher_record':'火之国木叶隐村的精英上忍','teacher_type':'a','video_url':'kkx'},
+                        {'img_url':'mtk.jpeg','teacher_id':2,'teacher_name':'迈特凯','teacher_record':'火之国木叶隐村的精英上忍','teacher_type':'a','video_url':'kkx'},
+                        {'img_url':'mtk.jpeg','teacher_id':2,'teacher_name':'迈特凯','teacher_record':'火之国木叶隐村的精英上忍','teacher_type':'a','video_url':'kkx'}
+                    ]]
+
+            },
+            methods:{
+//                jump:function(e){
+//                    console.log(e);
+//                }
+            },
+            created:function(){
+                console.log(this.name);
+//                this.$http.get('http://0.0.0.0:8000/myapp/teacher/', []).then(function (res) {
+//                    console.log(res);
+//                }, function(res){
+//                    console.log(res);
+//
+//                });
+            }
+        })
+
+    </script>
+</body>
+</html>

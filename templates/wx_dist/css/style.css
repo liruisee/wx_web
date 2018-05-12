@@ -1,0 +1,95 @@
+.bg_body{
+    background:#FFFBF3 ;
+}
+.type_box{
+    width:16rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-top:.5rem;
+    padding-bottom:.2rem;
+}
+.type_box_msg{
+    font-size:.6rem;
+    color:#333;
+    padding:0.2rem 1rem;
+
+}
+.type_box_more{
+    float:right;
+}
+
+.type_box_list{
+    width: 16rem;
+    padding:0 0.5rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    float:left;
+
+}
+.type_box_list li{
+    width:33.3%;
+    padding:0 0.3rem;
+    box-sizing: border-box;
+    float:left;
+    text-align: center;
+}
+.box_list_img{
+    width:100%;
+    height:5.5rem;
+}
+.teachername{
+    display: inline-block;
+    margin-top:.2rem;
+    font-size: .6rem;
+}
+.teacher_title{
+    font-size: .8rem;
+    box-sizing: border-box;
+    padding:.5rem;
+}
+.teacher_list{
+    font-size:0.6rem;
+    box-sizing: border-box;
+    padding:0 0.2rem;
+}
+.teacher_list li{
+     padding:.5rem;
+     overflow: hidden;
+     border-bottom:1px dashed #999;
+ }
+.teacher_list li:last-child{
+    border-bottom:none;
+}
+.teacher_list_img{
+    width:4rem;
+    /*border:1px solid #999;*/
+    box-sizing: border-box;
+    float:left;
+}
+.teacher_list_img img{
+    width:100%;
+    height:5rem;
+}
+.teacher_list_msg{
+    width:10.6rem;
+    height:5rem;
+    box-sizing: border-box;
+    float:left;
+    padding-left:0.3rem;
+    background: url("../images/sbznbg.png") no-repeat;
+    background-size: 100%;
+}
+.teacher_list_msg p{
+    margin-top:0.2rem;
+}
+.teacher_list_msg p span{
+    font-weight:bold;
+    margin-right:0.2rem;
+}
+.list_msg_name{
+
+}
+.list_msg_brief{
+    height:2.6rem;
+    overflow:hidden;
+}
