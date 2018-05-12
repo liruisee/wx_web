@@ -50,18 +50,20 @@ def get_type_list(request):
     try:
         sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers"
         result_dic = {}
+        row_key_list = ['teacher_id', 'teacher_name', 'teacher_record', 'teacher_type', 'img_url', 'video_url']
         cursor.execute(sql)
         for row in cursor.fetchall():
-            teacher_type = str(row[4])
+            teacher_type = str(row[3])
             if teacher_type not in result_dic:
-                result_dic[teacher_type] = [list(row)]
-            elif len(result_dic[teacher_type]) < 3 :
-                result_dic[teacher_type].append(list(row))
+                result_dic[teacher_type] = [dict(zip(row_key_list, list(row)))]
             else:
-                continue
-        key_list = sorted(result_dic.keys())
-        result = [result_dic[x] for x in key_list]
-        return JsonResponse(result, safe=False)
+                if len(result_dic[teacher_type]) < 3:
+                    result_dic[teacher_type].append(dict(zip(row_key_list, list(row))))
+                else:
+                    pass
+        type_list = sorted(result_dic.keys())
+        result_dic['type_list'] = type_list
+        return JsonResponse(result_dic, safe=False)
     except Exception as e:
         print(e)
     finally:
