@@ -92,4 +92,55 @@
 .list_msg_brief{
     height:2.6rem;
     overflow:hidden;
+    text-overflow: -o-ellipsis-lastline;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.teacher_name{
+    line-height: 2rem;
+    color:#333;
+    text-align: center;
+    font-size:0.8rem;
+    border-bottom:1px solid #999;
+}
+.video_box{
+    width:15rem;
+    padding:.5rem;
+
+}
+.video{
+    width:100%;
+    background: #000;
+}
+.teacher_text{
+    color:#333;
+    font-size:0.6rem;
+    text-indent:2em;
+    padding:0.5rem;
+    border-bottom:1px dashed #999;
+}
+.works_title{
+    color:#333;
+    font-size: 0.7rem;padding-left:0.5rem;
+    margin-top:0.5rem;
+}
+.works_list{
+    padding:.5rem;
+    overflow: auto;
+}
+.works_list li{
+    width:100%;
+    float: left;
+    margin-bottom:0.5rem;
+}
+.works_list li img{
+    width:100%;
+}
+.works_list li p{
+    text-align: center;
+    font-size: 0.6rem;
+    margin-top:0.2rem;
 }
