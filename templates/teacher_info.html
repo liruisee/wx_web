@@ -49,7 +49,14 @@
             },
             created:function(){
                 this.$http.get('/wx_app/get_teacher_info/?teacher_id=1', []).then(function (res) {
-                    console.log(res.body);
+                    var request = res.body[0][0];
+                    console.log(request);
+
+                            this.name=request.teacher_name;
+                            this.video=request.video_url;
+                            this.text=request.teacher_record;
+
+
                 }, function(res){
                     console.log(res);
 
