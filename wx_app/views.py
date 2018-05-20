@@ -63,9 +63,9 @@ def type_list(request):
 def get_type_list(request):
     cursor = connection.cursor()
     try:
-        sql = "select id,name,introduce,fi_class,img_url,video_url,se_class from wx_teacher_info"
+        sql = "select id,name,introduce,se_class,img_url,video_url,fi_class from wx_teacher_info"
         result_dic = {}
-        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'img_url', 'video_url', 'se_class']
+        row_key_list = ['id', 'name', 'intorduce', 'se_class', 'img_url', 'video_url', 'fi_class']
         cursor.execute(sql)
         for row in cursor.fetchall():
             fi_class = str(row[-1])
