@@ -63,17 +63,17 @@ def type_list(request):
 def get_type_list(request):
     cursor = connection.cursor()
     try:
-        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url,teacher_type_code from teachers"
+        sql = "select id,name,introduce,fi_class,img_url,video_url,se_class from wx_teacher_info"
         result_dic = {}
-        row_key_list = ['teacher_id', 'teacher_name', 'teacher_record', 'teacher_type', 'img_url', 'video_url']
+        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'img_url', 'video_url']
         cursor.execute(sql)
         for row in cursor.fetchall():
-            teacher_type = str(row[-1])
-            if teacher_type not in result_dic:
-                result_dic[teacher_type] = [dict(zip(row_key_list, list(row[:-1])))]
+            fi_class = str(row[-1])
+            if fi_class not in result_dic:
+                result_dic[fi_class] = [dict(zip(row_key_list, list(row[:-1])))]
             else:
-                if len(result_dic[teacher_type]) < 3:
-                    result_dic[teacher_type].append(dict(zip(row_key_list, list(row[:-1]))))
+                if len(result_dic[fi_class]) < 3:
+                    result_dic[fi_class].append(dict(zip(row_key_list, list(row[:-1]))))
                 else:
                     pass
         type_list = sorted(result_dic.keys())
@@ -91,10 +91,10 @@ def get_teacher_list_by_type(request):
         return HttpResponse("请求类型错误，请使用get请求")
     cursor = connection.cursor()
     try:
-        teacher_type_code = request.GET['teacher_type_code']
-        row_key_list = ['teacher_id', 'teacher_name', 'teacher_record', 'teacher_type', 'img_url', 'video_url']
-        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers \
-            where teacher_type_code='%s'" % teacher_type_code
+        fi_class = request.GET['fi_class']
+        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'img_url', 'video_url']
+        sql = "select id,name,introduce,fi_class,img_url,video_url from wx_teacher_info \
+            where fi_class='%s'" % fi_class
         cursor.execute(sql)
         result = [[dict(zip(row_key_list, list(row)))] for row in cursor.fetchall()]
         return JsonResponse(result, safe=False)
@@ -104,15 +104,16 @@ def get_teacher_list_by_type(request):
         cursor.close()
 
 
+@try_except_decorate
 def get_teacher_info(request):
     if request.method != 'GET':
         return HttpResponse("请求类型错误，请使用get请求")
     cursor = connection.cursor()
     try:
-        teacher_id = request.GET['teacher_id']
-        row_key_list = ['teacher_id', 'teacher_name', 'teacher_record', 'teacher_type', 'img_url', 'video_url']
-        sql = "select teacher_id,teacher_name,teacher_record,teacher_type,img_url,video_url from teachers \
-            where teacher_id='%s'" % teacher_id
+        teacher_id = request.GET['id']
+        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'img_url', 'video_url']
+        sql = "select id,name,intorduce,fi_class,img_url,video_url from wx_teacher_info \
+            where id='%s'" % teacher_id
         print(sql)
         cursor.execute(sql)
         result = [[dict(zip(row_key_list, list(row)))] for row in cursor.fetchall()]
