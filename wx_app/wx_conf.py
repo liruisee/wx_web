@@ -12,29 +12,31 @@ encoding_aes_key = '5s8OZFOIB2xexF8yhHHhCEPP3mIk4o7qfyF6KyrMJbm'
 menu_conf_dic = {
         "button": [
             {
-                "type": "click",
-                "name": "今日歌曲",
-                "key": "V1001_TODAY_MUSIC"
-            },
-            {
-                "name": "菜单",
+                "name": "菜单1",
                 "sub_button": [
                     {
                         "type": "view",
-                        "name": "搜索",
-                        "url": "http://www.soso.com/"
+                        "name": "teacher_list",
+                        "url": "http://118.89.222.232/wx_app/teacher_list?teacher_type=A"
                     },
                     {
-                        "type": "miniprogram",
-                        "name": "wxa",
-                        "url": "http://mp.weixin.qq.com",
-                        "appid": "wxd915430b4a523911",
-                        "pagepath": "pages/lunar/index"
+                        "type": "view",
+                        "name": "teacher_info",
+                        "url": "http://118.89.222.232/wx_app/teacher_info?teacher_id=1"
+                    }]
+            },
+            {
+                "name": "菜单2",
+                "sub_button": [
+                    {
+                        "type": "view",
+                        "name": "type_list",
+                        "url": "http://118.89.222.232/wx_app/type_list/"
                     },
                     {
-                        "type": "click",
-                        "name": "赞一下我们",
-                        "key": "V1001_GOOD"
+                        "type": "view",
+                        "name": "type_list",
+                        "url": "http://118.89.222.232/wx_app/type_list/"
                     }]
             }]
     }
@@ -72,37 +74,6 @@ if __name__ == '__main__':
     app_id = 'wxd915430b4a523911'
     token = 'douban_book'
     encoding_aes_key = '5s8OZFOIB2xexF8yhHHhCEPP3mIk4o7qfyF6KyrMJbm'
-    menu_conf_dic = {
-        "button": [
-            {
-                "name": "菜单1",
-                "sub_button": [
-                    {
-                        "type": "view",
-                        "name": "继承人1",
-                        "url": "http://118.89.222.232/myapp/login/"
-                    },
-                    {
-                        "type": "view",
-                        "name": "继承人2",
-                        "url": "http://118.89.222.232/myapp/login/"
-                    }]
-            },
-            {
-                "name": "菜单2",
-                "sub_button": [
-                    {
-                        "type": "view",
-                        "name": "继承人3",
-                        "url": "http://118.89.222.232/myapp/login/"
-                    },
-                    {
-                        "type": "view",
-                        "name": "继承人4",
-                        "url": "http://118.89.222.232/myapp/login/"
-                    }]
-            }]
-    }
     acc_url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s' % (app_id, app_secret)
     response = requests.get(acc_url).text
     print(response)
