@@ -111,8 +111,8 @@ def get_teacher_info(request):
     cursor = connection.cursor()
     try:
         teacher_id = request.GET['id']
-        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'img_url', 'video_url']
-        sql = "select id,name,intorduce,fi_class,img_url,video_url from wx_teacher_info \
+        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'se_class', 'img_url', 'video_url']
+        sql = "select id,name,intorduce,fi_class,se_class,img_url,video_url from wx_teacher_info \
             where id='%s'" % teacher_id
         print(sql)
         cursor.execute(sql)
