@@ -24,6 +24,9 @@
     <script src="./js/vue-resource-1.50.js"></script>
     <script src='./js/main.js'></script>
     <script>
+        var getvalue = fnUrlData();
+        var fi_class = getvalue[0];
+        console.log(fi_class);
         var app = new Vue({
             el:"#app",
             data:{
@@ -37,11 +40,10 @@
 
             },
             created:function(){
-                this.$http.get('/wx_app/get_teacher_list?teacher_type_code=A',{}).then(function (res) {
-                    console.log(res.body[0][0].teacher_type);
+                this.$http.get('/wx_app/get_teacher_list?fi_class='+fi_class,{}).then(function (res) {
+                    console.log(res.body[0][0].type);
                     this.datalist = res.body;
-                    this.dataType = res.body[0][0].teacher_type
-
+                    this.dataType = res.body[0][0].fi_class
                 }, function(res){
                     console.log(res);
 

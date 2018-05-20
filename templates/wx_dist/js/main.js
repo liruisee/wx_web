@@ -1,6 +1,21 @@
 document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";//改变窗口的时候重新计算大小
 window.onresize = function(){document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/16+"px";}
 
+//针对url发送数据处理
+var aValue = [];//url参数列表
+function fnUrlData(){
+  var curUrl = location.href;
+  if(curUrl.indexOf('?') != -1){
+    var strData = curUrl.split('?')[1];
+    var Adata = strData.split('&');
+    var dataLen = Adata.length;
+    for(var i=0;i<dataLen;i++){
+      aValue.push(Adata[i].split('=')[1]);
+    }
+    return aValue;
+  }
+}
+
 
 var typeListchild = {
     props:['img_url','teacher_id','teacher_name','teacher_record','teacher_type','video_url'],

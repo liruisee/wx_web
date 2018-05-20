@@ -17,7 +17,7 @@
         <div class="type_box" v-for="(datas,index) in data_list">
             <p class="type_box_msg">
                 <span class="type_box_text">{{datas[0].teacher_type}}</span>
-                <span class="type_box_more">更多</span>
+                <span class="type_box_more" v-on:click="jump(datas[0].teacher_type)">更多</span>
             </p>
             <ul class="type_box_list" >
                 <li is="teaThu" v-bind="dat" v-for="dat in datas"></li>
@@ -42,9 +42,9 @@
 
             },
             methods:{
-//                jump:function(e){
-//                    console.log(e);
-//                }
+                jump:function(e){
+                    console.log(e);
+                }
             },
             created:function(){
                 console.log(this.name);
