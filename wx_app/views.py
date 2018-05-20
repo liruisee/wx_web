@@ -136,7 +136,7 @@ def get_work_list(request):
             where id='%s'" % teacher_id
         print(sql)
         cursor.execute(sql)
-        result = {'work_list': ['/'.join(map(str, x)) + '/' for x in cursor.fetchall()]}
+        result = {'work_list': ['/'.join(map(str, x)) for x in cursor.fetchall()]}
         return JsonResponse(result, safe=False)
     except Exception as e:
         print(traceback.format_exc())
