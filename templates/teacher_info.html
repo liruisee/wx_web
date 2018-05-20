@@ -15,7 +15,7 @@
     <div class="info" id="app">
         {% verbatim myblock %}
             <img v-bind:src=imgurl alt="" class="teacher_photo">
-            <p class="teacher_name">{{ name+'-'+se_class }}继承人</p>
+            <p class="teacher_name">{{ name+'-'+se_class }}-非遗项目继承人</p>
         <!--<div class="video_box">
             <video class="video" preload="metadata" conrtols="true" autoplay="autoplay" src="http://player.youku.com/player.php/sid/14567794/v.swf"></video>
         </div>-->
@@ -23,8 +23,8 @@
         <p class="works_title">作品展示</p>
         <ul class="works_list">
             <li v-for="work in works_list">
-                <img :src=work.workurl alt="">
-                <p>《{{ work.workname }}》</p>
+                <img :src=work alt="">
+                <p>《无题》</p>
             </li>
         </ul>
         {% endverbatim myblock %}
@@ -42,7 +42,7 @@
                 name:"wcc",
                 video:"",
                 text:'',
-                works_list:[{'workname':'无题','workurl':'./images/2/work01.jpg'}],
+                works_list:[],
                 imgurl:'',
                 se_class:'剪纸'
 
@@ -67,12 +67,18 @@
                 });
 
 
-{#                //获取作品列表#}
-{#                this.$http.get('/wx_app/get_teacher_info/?id='+teacher_id, []).then(function (res){#}
-{#                    var request = res.body[0][0];#}
-{#                }, function(res){#}
-{#                    alert('网络异常，请稍后重试！');#}
-{#                });#}
+                //获取作品列表
+                this.$http.get('/wx_app/get_work_list/?id='+teacher_id, []).then(function (res){
+                    var request = res.body;
+                    var urlArr = [];
+                    for(var w = 0;w<request.work_list.length;w++){
+                        urlArr.push('./images/'+request.work_list[w]);
+                    }
+                    this.works_list = urlArr;
+                    console.log(this.works_list)
+                }, function(res){
+                    alert('网络异常，请稍后重试！');
+                });
             }
         })
     </script>
