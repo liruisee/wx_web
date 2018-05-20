@@ -92,8 +92,8 @@ def get_teacher_list_by_type(request):
     cursor = connection.cursor()
     try:
         fi_class = request.GET['fi_class']
-        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'img_url', 'video_url']
-        sql = "select id,name,introduce,fi_class,img_url,video_url from wx_teacher_info \
+        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'img_url', 'video_url', 'se_class']
+        sql = "select id,name,introduce,fi_class,img_url,video_url, se_class from wx_teacher_info \
             where fi_class='%s'" % fi_class
         cursor.execute(sql)
         result = [[dict(zip(row_key_list, list(row)))] for row in cursor.fetchall()]
@@ -111,8 +111,8 @@ def get_teacher_info(request):
     cursor = connection.cursor()
     try:
         teacher_id = request.GET['id']
-        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'se_class', 'img_url', 'video_url']
-        sql = "select id,name,intorduce,fi_class,se_class,img_url,video_url from wx_teacher_info \
+        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'se_class', 'img_url', 'video_url', 'se_class']
+        sql = "select id,name,intorduce,fi_class,se_class,img_url,video_url, se_class from wx_teacher_info \
             where id='%s'" % teacher_id
         print(sql)
         cursor.execute(sql)
