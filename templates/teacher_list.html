@@ -41,7 +41,7 @@
             },
             created:function(){
                 this.$http.get('/wx_app/get_teacher_list?fi_class='+fi_class,{}).then(function (res) {
-                    console.log(res.body[0][0].type);
+                    console.log(res.body[0][0]);
                     this.datalist = res.body;
                     this.dataType = res.body[0][0].fi_class
                 }, function(res){
