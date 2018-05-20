@@ -132,11 +132,11 @@ def get_work_list(request):
     cursor = connection.cursor()
     try:
         teacher_id = request.GET['id']
-        sql = "select work from wx_teacher_work \
+        sql = "select id,work from wx_teacher_work \
             where id='%s'" % teacher_id
         print(sql)
         cursor.execute(sql)
-        result = {'work_list': [x for x in cursor.fetchall()]}
+        result = {'work_list': [x[0] for x in cursor.fetchall()]}
         return JsonResponse(result, safe=False)
     except Exception as e:
         print(traceback.format_exc())
