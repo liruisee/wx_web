@@ -34,13 +34,14 @@ var typeListchild = {
     methods:{
         jump:function(e){
             console.log(e);
+            window.location.href = '/wx_app/teacher_info/?id='+e
         }
     }
 }
 
 var teacherlistchild = {
     props:['img_url','teacher_id','name','intorduce','se_class','video_url'],
-    template:'<li><div class="teacher_list_img"><img v-bind:src=imgsrc alt=""></div><div class="teacher_list_msg"><p class="list_msg_name">{{teacherName}}</p><p class="list_msg_type"><span>类别：</span>{{teacherType}}</p><p class="list_msg_brief"><span>简介：</span>{{teacherRecord}}</p></div></li>',
+    template:'<li v-bind:click="jump(teacherId)"><div class="teacher_list_img"><img v-bind:src=imgsrc alt=""></div><div class="teacher_list_msg"><p class="list_msg_name">{{teacherName}}</p><p class="list_msg_type"><span>类别：</span>{{teacherType}}</p><p class="list_msg_brief"><span>简介：</span>{{teacherRecord}}</p></div></li>',
     data:function(){
         return {
             'imgUrl':this.img_url,
@@ -52,4 +53,10 @@ var teacherlistchild = {
             'imgsrc':'images/'+this.img_url
         }
     },
+    methods:{
+        jump:function(e){
+            console.log(e);
+            window.location.href = '/wx_app/teacher_info/?id='+e
+        }
+    }
 }
