@@ -54,7 +54,7 @@
 
                 //获取老师的详细信息
                 this.$http.get('/wx_app/get_teacher_info/?id='+teacher_id, []).then(function (res){
-                    console.log(res)
+                    console.log(res);
                     var request = res.body[0][0];
                     console.log(request);
                     this.name = request.name;

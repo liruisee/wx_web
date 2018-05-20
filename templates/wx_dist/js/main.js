@@ -18,12 +18,12 @@ function fnUrlData(){
 
 
 var typeListchild = {
-    props:['img_url','teacher_id','name','intorduce','teacher_type','video_url'],
+    props:['img_url','id','name','intorduce','teacher_type','video_url'],
     template:'<li @click="jump(teacherId)"><img v-bind:src=imgsrc alt="" class="box_list_img"><span class="teachername">{{ teacherName }}</span></li>',
     data:function(){
         return {
             'imgUrl':this.img_url,
-            'teacherId':this.teacher_id,
+            'teacherId':this.id,
             'teacherName':this.name,
             'teacherRecord':this.intorduce,
             'teacherType':this.teacher_type,
@@ -40,12 +40,12 @@ var typeListchild = {
 }
 
 var teacherlistchild = {
-    props:['img_url','teacher_id','name','intorduce','se_class','video_url'],
-    template:'<li v-bind:click="jump(teacherId)"><div class="teacher_list_img"><img v-bind:src=imgsrc alt=""></div><div class="teacher_list_msg"><p class="list_msg_name">{{teacherName}}</p><p class="list_msg_type"><span>类别：</span>{{teacherType}}</p><p class="list_msg_brief"><span>简介：</span>{{teacherRecord}}</p></div></li>',
+    props:['img_url','id','name','intorduce','se_class','video_url'],
+    template:'<li @click="jump(teacherId)"><div class="teacher_list_img"><img v-bind:src=imgsrc alt=""></div><div class="teacher_list_msg"><p class="list_msg_name">{{teacherName}}</p><p class="list_msg_type"><span>类别：</span>{{teacherType}}</p><p class="list_msg_brief"><span>简介：</span>{{teacherRecord}}</p></div></li>',
     data:function(){
         return {
             'imgUrl':this.img_url,
-            'teacherId':this.teacher_id,
+            'teacherId':this.id,
             'teacherName':this.name,
             'teacherRecord':this.intorduce,
             'teacherType':this.se_class,
@@ -55,8 +55,8 @@ var teacherlistchild = {
     },
     methods:{
         jump:function(e){
-            console.log(e);
-            window.location.href = '/wx_app/teacher_info/?id='+e
-        }
+                    console.log(e);
+                    window.location.href = '/wx_app/teacher_info/?id='+e
+                }
     }
 }

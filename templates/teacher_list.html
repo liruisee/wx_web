@@ -37,6 +37,7 @@
                 'teaThu':teacherlistchild
             },
             methods:{
+
             },
             created:function(){
                 this.$http.get('/wx_app/get_teacher_list?fi_class='+fi_class,{}).then(function (res) {
