@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import hashlib
 from django.db import connection
 from functools import wraps
+import traceback
 
 
 # 异常处理，因为
@@ -99,7 +100,7 @@ def get_teacher_list_by_type(request):
         result = [[dict(zip(row_key_list, list(row)))] for row in cursor.fetchall()]
         return JsonResponse(result, safe=False)
     except Exception as e:
-        print(e)
+        print(traceback.format_exc())
     finally:
         cursor.close()
 
@@ -111,15 +112,15 @@ def get_teacher_info(request):
     cursor = connection.cursor()
     try:
         teacher_id = request.GET['id']
-        row_key_list = ['id', 'name', 'intorduce', 'fi_class', 'se_class', 'img_url', 'video_url', 'se_class']
-        sql = "select id,name,intorduce,fi_class,se_class,img_url,video_url, se_class from wx_teacher_info \
+        row_key_list = ['id', 'name', 'introduce', 'fi_class', 'se_class', 'img_url', 'video_url', 'se_class']
+        sql = "select id,name,introduce,fi_class,se_class,img_url,video_url,se_class from wx_teacher_info \
             where id='%s'" % teacher_id
         print(sql)
         cursor.execute(sql)
         result = [[dict(zip(row_key_list, list(row)))] for row in cursor.fetchall()]
         return JsonResponse(result, safe=False)
     except Exception as e:
-        print(e)
+        print(traceback.format_exc())
     finally:
         cursor.close()
 
