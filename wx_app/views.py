@@ -70,10 +70,10 @@ def get_type_list(request):
         for row in cursor.fetchall():
             fi_class = str(row[-1])
             if fi_class not in result_dic:
-                result_dic[fi_class] = [dict(zip(row_key_list, list(row[:-1])))]
+                result_dic[fi_class] = [dict(zip(row_key_list, list(row)))]
             else:
                 if len(result_dic[fi_class]) < 3:
-                    result_dic[fi_class].append(dict(zip(row_key_list, list(row[:-1]))))
+                    result_dic[fi_class].append(dict(zip(row_key_list, list(row))))
                 else:
                     pass
         type_list = sorted(result_dic.keys())
