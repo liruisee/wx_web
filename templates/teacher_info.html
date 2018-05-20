@@ -14,15 +14,15 @@
 <body class="bg_body">
     <div class="info" id="app">
         {% verbatim myblock %}
-        <p class="teacher_name">{{ name }}</p>
+            <img v-bind:src=imgurl alt="" class="teacher_photo">
+            <p class="teacher_name">{{ name+'-'+se_class }}继承人</p>
         <!--<div class="video_box">
             <video class="video" preload="metadata" conrtols="true" autoplay="autoplay" src="http://player.youku.com/player.php/sid/14567794/v.swf"></video>
         </div>-->
-        <img src="" alt="">
         <p class="teacher_text">{{ text }}</p>
         <p class="works_title">作品展示</p>
         <ul class="works_list">
-            <li v-for="work in work_list">
+            <li v-for="work in works_list">
                 <img :src=work.workurl alt="">
                 <p>《{{ work.workname }}》</p>
             </li>
@@ -39,10 +39,12 @@
         var app = new Vue({
             el:'#app',
             data:{
-                name:"",
+                name:"wcc",
                 video:"",
                 text:'',
-                works_list:[{'workname':'无题','workurl':'./images/02/work01.jpg'}],
+                works_list:[{'workname':'无题','workurl':'./images/2/work01.jpg'}],
+                imgurl:'',
+                se_class:'剪纸'
 
             },
             methods:{
@@ -52,22 +54,25 @@
 
                 //获取老师的详细信息
                 this.$http.get('/wx_app/get_teacher_info/?id='+teacher_id, []).then(function (res){
+                    console.log(res)
                     var request = res.body[0][0];
                     console.log(request);
-                    this.name=request.teacher_name;
-                    this.video=request.video_url;
-                    this.text=request.teacher_record;
+                    this.name = request.name;
+                    this.video = request.video_url;
+                    this.text = request.introduce;
+                    this.imgurl = './images/'+request.img_url;
+                    this.se_class = request.se_class;
                 }, function(res){
                     alert('网络异常，请稍后重试！');
                 });
 
 
-                //获取作品列表
-                this.$http.get('/wx_app/get_teacher_info/?id='+teacher_id, []).then(function (res){
-                    var request = res.body[0][0];
-                }, function(res){
-                    alert('网络异常，请稍后重试！');
-                });
+{#                //获取作品列表#}
+{#                this.$http.get('/wx_app/get_teacher_info/?id='+teacher_id, []).then(function (res){#}
+{#                    var request = res.body[0][0];#}
+{#                }, function(res){#}
+{#                    alert('网络异常，请稍后重试！');#}
+{#                });#}
             }
         })
     </script>

@@ -103,8 +103,7 @@
     line-height: 2rem;
     color:#333;
     text-align: center;
-    font-size:0.8rem;
-    border-bottom:1px solid #999;
+    font-size:0.6rem;
 }
 .video_box{
     width:15rem;
@@ -143,4 +142,10 @@
     text-align: center;
     font-size: 0.6rem;
     margin-top:0.2rem;
+}
+.teacher_photo{
+    display: block;
+    width:6rem;
+    border-radius: 50%;
+    margin:0.6rem auto 0;
 }

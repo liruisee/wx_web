@@ -18,14 +18,14 @@ function fnUrlData(){
 
 
 var typeListchild = {
-    props:['img_url','teacher_id','teacher_name','teacher_record','teacher_type','video_url'],
+    props:['img_url','teacher_id','name','intorduce','teacher_type','video_url'],
     template:'<li @click="jump(teacherId)"><img v-bind:src=imgsrc alt="" class="box_list_img"><span class="teachername">{{ teacherName }}</span></li>',
     data:function(){
         return {
             'imgUrl':this.img_url,
             'teacherId':this.teacher_id,
-            'teacherName':this.teacher_name,
-            'teacherRecord':this.teacher_record,
+            'teacherName':this.name,
+            'teacherRecord':this.intorduce,
             'teacherType':this.teacher_type,
             'videoUrl':this.video_url,
             'imgsrc':'images/'+this.img_url
@@ -39,15 +39,15 @@ var typeListchild = {
 }
 
 var teacherlistchild = {
-    props:['img_url','teacher_id','teacher_name','teacher_record','teacher_type','video_url'],
+    props:['img_url','teacher_id','name','intorduce','se_class','video_url'],
     template:'<li><div class="teacher_list_img"><img v-bind:src=imgsrc alt=""></div><div class="teacher_list_msg"><p class="list_msg_name">{{teacherName}}</p><p class="list_msg_type"><span>类别：</span>{{teacherType}}</p><p class="list_msg_brief"><span>简介：</span>{{teacherRecord}}</p></div></li>',
     data:function(){
         return {
             'imgUrl':this.img_url,
             'teacherId':this.teacher_id,
-            'teacherName':this.teacher_name,
-            'teacherRecord':this.teacher_record,
-            'teacherType':this.teacher_type,
+            'teacherName':this.name,
+            'teacherRecord':this.intorduce,
+            'teacherType':this.se_class,
             'videoUrl':this.video_url,
             'imgsrc':'images/'+this.img_url
         }
