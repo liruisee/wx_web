@@ -12,5 +12,6 @@ urlpatterns = [
     path('get_teacher_info/', views.get_teacher_info),
     path('type_list/', views.type_list),
     path('get_type_list/', views.get_type_list),
+    path('get_work_list/', views.get_work_list),
 ]
 
