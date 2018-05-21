@@ -5,6 +5,7 @@ import hashlib
 from django.db import connection
 from functools import wraps
 import traceback
+from wx_app.wx_server import get_access_token
 
 
 # 异常处理，因为
@@ -142,3 +143,8 @@ def get_work_list(request):
         print(traceback.format_exc())
     finally:
         cursor.close()
+
+
+def get_access(request):
+    access_token = get_access_token()
+    return JsonResponse({'access_token': access_token}, safe=False)
