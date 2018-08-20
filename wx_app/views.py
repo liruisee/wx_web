@@ -148,3 +148,7 @@ def get_work_list(request):
 def get_access(request):
     access_token = get_access_token()
     return JsonResponse({'access_token': access_token}, safe=False)
+
+
+def index_test(request):
+    return render_to_response('index.html', {})

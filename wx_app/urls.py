@@ -14,5 +14,6 @@ urlpatterns = [
     path('get_type_list/', views.get_type_list),
     path('get_work_list/', views.get_work_list),
     path('get_access/', views.get_access),
+    path('index_test/', views.index_test),
 ]
 
